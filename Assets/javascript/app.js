@@ -1,29 +1,7 @@
      $(function(){
 
-     $("#gifs-appear-here").on("click","img.gif", function() {
-      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-      var state = $(this).attr("data-state");
-      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-      // Then, set the image's data-state to animate
-      // Else set src to the data-still value
-      if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-      }
-    });
-
-      //var input = $('<input name="new-gif">');
-     //var submitBotton = $('<button>')
-     //var search = $('<form-group name = "gif-search">')
-     //append 
-
-
-
- $("button").on("click", function() {
-      var person = $(this).attr("data-person");
+      function getGifs(){
+        var person = $(this).attr("data-person");
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         person + "&api_key=dc6zaTOxFJmzC&limit=10";
 
@@ -54,6 +32,31 @@
 
             $("#gifs-appear-here").prepend(gifDiv);
           }
-        });
+      })
+      }
+
+     $("#gifs-appear-here").on("click","img.gif", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
     });
+
+
+ $("#add-gif").on("click", function() {
+    var newButton = $("<button class = 'athleteButton' type='addInput' value='Dynamic Button' id='add-gif' />").appendTo('#buttons');
+    var userInput = $("#addInput").val()
+    newButton.text(userInput)
+    newButton.on("click", getGifs);
+ })
+
+ $(".athleteButton").on("click", getGifs);
 });
