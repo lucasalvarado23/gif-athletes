@@ -1,4 +1,6 @@
-     $(".gif").on("click", function() {
+     $(function(){
+
+     $("#gifs-appear-here").on("click","img.gif", function() {
       // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
       var state = $(this).attr("data-state");
       // If the clicked image's state is still, update its src attribute to what its data-animate value is.
@@ -13,6 +15,13 @@
       }
     });
 
+      //var input = $('<input name="new-gif">');
+     //var submitBotton = $('<button>')
+     //var search = $('<form-group name = "gif-search">')
+     //append 
+
+
+
  $("button").on("click", function() {
       var person = $(this).attr("data-person");
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -26,6 +35,7 @@
           var results = response.data;
 
           for (var i = 0; i < results.length; i++) {
+            console.log(results [i].images)
             var gifDiv = $("<div class='item'>");
 
             var rating = results[i].rating;
@@ -33,8 +43,12 @@
             var p = $("<p>").text("Rating: " + rating);
 
             var personImage = $("<img>");
-            personImage.attr("src", results[i].images.fixed_height.url);
-
+            personImage.attr({
+              "src":results[i].images.fixed_height.url,
+               "class": "gif",
+              "data-animate": results[i].images.fixed_height.url,
+              "data-still":results[i].images.fixed_height_still.url
+             });
             gifDiv.prepend(p);
             gifDiv.prepend(personImage);
 
@@ -42,3 +56,4 @@
           }
         });
     });
+});
