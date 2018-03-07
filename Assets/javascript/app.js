@@ -52,8 +52,8 @@
 
 
  $("#add-gif").on("click", function() {
-    var newButton = $("<button class = 'athleteButton' type='addInput' value='Dynamic Button' id='add-gif' />").appendTo('#buttons');
     var userInput = $("#addInput").val()
+    var newButton = $("<button class = 'athleteButton' data-person = "+ userInput +" type='addInput' value='Dynamic Button' id='add-gif' />").appendTo('#buttons');
     newButton.text(userInput)
     newButton.on("click", getGifs);
  })
